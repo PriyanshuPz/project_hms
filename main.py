@@ -7,6 +7,20 @@ def clear_terminal():
     os.system("cls" if os.name == "nt" else "clear")
 
 
+def authenticate_user():
+    u1 = input("Enter username: ")
+    pwd1 = input("Enter password: ")
+
+    if u1 == "admin" and pwd1 == "password":
+        return True
+    else:
+        print("Wrong username & password!")
+        input("Press Enter to try again...")
+        clear_terminal()
+        display_welcome()
+        return False
+
+
 def display_welcome():
     WELCOME_MESSAGE = """
 ----------------------------------------------
@@ -208,10 +222,8 @@ def main():
             choice = int(input("ENTER YOUR CHOICE: "))
 
             if choice == 1:
-                u1 = input("Enter username: ")
-                pwd1 = input("Enter password: ")
-
-                if u1 == "admin" and pwd1 == "password":
+                is_authenticated = authenticate_user()
+                if is_authenticated:
                     while True:
                         clear_terminal()
                         display_welcome()
@@ -233,10 +245,7 @@ def main():
                             conn.close()
                             exit()
                 else:
-                    print("Wrong username & password!")
-                    input("Press Enter to try again...")
-                    clear_terminal()
-                    display_welcome()
+                    continue
 
             elif choice == 2:
                 print("Thank you for using HMS!")
